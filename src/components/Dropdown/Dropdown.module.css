@@ -1,0 +1,58 @@
+.container {
+  min-width: 50px;
+  width:95%;
+  max-width: 400px;
+  min-height: 30px;
+  max-height: 200px;
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  overflow-y: hidden;
+  z-index: 100;
+  color: white;
+
+}
+
+.container div {
+  width: 100%;
+}
+
+.selectedOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selectedText {
+  padding-left: 5px;
+}
+
+.optionContainer {
+  max-height: 160px;
+  background-color: #473876;
+  color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #696969;
+}
+
+
+.icon {
+  margin-right: 5px;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.option {
+  padding-left: 5px;
+  word-wrap: break-word;
+}
+
+.option:hover {
+  background-color: rgb(231, 231, 248);
+  color:black;
+  cursor: pointer;
+}

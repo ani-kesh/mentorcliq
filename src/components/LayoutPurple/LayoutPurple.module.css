@@ -1,0 +1,29 @@
+.section {
+  max-width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(90deg, #473876, #a02e8f);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+}
+
+.box {
+  position: relative;
+}
+
+.container {
+  position: relative;
+  padding: 50px;
+  min-width: 260px;
+  min-height: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+}

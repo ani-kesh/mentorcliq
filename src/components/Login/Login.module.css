@@ -1,0 +1,43 @@
+.form {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.h2 {
+  color: #fff;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+.inputBx {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.span {
+  position: absolute;
+  left: 30px;
+  padding: 10px;
+  display: inline-block;
+  color: #fff;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.signUp {
+  color: #fff;
+  font-size: 15px;
+  margin-top: 5px;
+}
+.signUp a {
+  color: #fff;
+}
+
+.signUp a:hover {
+  background-color: #000;
+  background-image: linear-gradient(to right, #434343 0%, black 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
