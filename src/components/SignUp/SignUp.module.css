@@ -158,3 +158,19 @@
   color:rgb(24, 209, 24);
 }
 /*third page table style end*/
+
+
+.haveAccount{
+  position: relative;
+  width:90vw;
+  display: flex;
+  justify-content: flex-end;
+  top: 70px;
+  color:white;
+  z-index:4;
+}
+
+.href{
+  color:black;
+  margin-left:10px;
+}

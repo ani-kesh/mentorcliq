@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Genders } from "../../constants/gender";
-import { useAuth } from "../../contexts/AuthContext";
+import {
+  isValidEmail,
+  isValidPassword,
+  isEmptyString,
+} from "../../helpers/validation.helpers";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
 import { form, h2, inputBx, password } from "./SignUp.module.css";
 
 export default function SignUpFirst({ setPage, setInfo }) {
-  const { signup } = useAuth();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState(Genders[1].name);
@@ -15,15 +18,21 @@ export default function SignUpFirst({ setPage, setInfo }) {
   const [passwordVal, setPasswordVal] = useState("");
 
   const handleNext = () => {
-    //signup({email,passwordVal})
-    setInfo({
-      firstName,
-      lastName,
-      gender,
-      email,
-      passwordVal,
-    });
-    setPage(2);
+    const isValidFirstNm = isEmptyString(firstName);
+    const isValidLastNm = isEmptyString(lastName);
+    const isEmailValid = isValidEmail(email);
+    const isPasswordValid = isValidPassword(passwordVal);
+
+    if (isValidFirstNm && isValidLastNm && isEmailValid && isPasswordValid) {
+      setInfo({
+        firstName,
+        lastName,
+        gender,
+        email,
+        passwordVal,
+      });
+      setPage(2);
+    }
   };
 
   const handleFirstName = (ev) => {

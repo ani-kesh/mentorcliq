@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import {  useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import { getUsers } from "../../services/user.services";
+import { useAuth } from "../../contexts/AuthContext";
+import { Routes } from "../../constants/routes";
 import Button from "../Button/Button";
 import Loading from "../Loading/Loading";
 import {
@@ -24,8 +27,12 @@ import {
 } from "./SignUp.module.css";
 
 export default function SignUpThird({ info }) {
+  const { signup, user } = useAuth();
+  const history = useHistory();
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const [notSuggestedUsers, setNotSuggestedUsers] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const { email, passwordVal } = info;
 
   useEffect(() => {
     let countMatch = 0;
@@ -54,7 +61,20 @@ export default function SignUpThird({ info }) {
   }, []);
 
   const Register = () => {
-    console.log(info);
+    if (suggestedUsers.length !== 5) {
+      setErrorMessage("You can have only 5 users.");
+    } else {
+      setErrorMessage("");
+      const suggestedUserIds = suggestedUsers.map(({ uid }) => uid);
+      const program = {
+        ...info,
+        userIds:[...suggestedUserIds]
+      };
+      
+      signup(program).then(() => {
+        return history.push(Routes.account(user.uid).path);
+      });
+    }
   };
 
   const handleMinus = (id) => (ev) => {
@@ -69,7 +89,7 @@ export default function SignUpThird({ info }) {
     const notSuggested = notSuggestedUsers.filter(({ uid }) => uid !== id);
     const newSuggested = notSuggestedUsers.filter(({ uid }) => uid === id);
 
-    setSuggestedUsers([...suggestedUsers,...newSuggested]);
+    setSuggestedUsers([...suggestedUsers, ...newSuggested]);
     setNotSuggestedUsers([...notSuggested]);
   };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { auth } from "../libs/firebase.libs";
 import { addUser } from "../services/user.services";
+import { addProgram } from "../services/program.services";
 
 const authContext = createContext();
 
@@ -41,6 +42,7 @@ function useProvideAuth() {
     country,
     city,
     passwordVal,
+    userIds,
   }) => {
     return auth
       .createUserWithEmailAndPassword(email, passwordVal)
@@ -58,6 +60,7 @@ function useProvideAuth() {
           passwordVal,
           uid: response.user.uid,
         });
+        addProgram({ uid: response.user.uid, userIds });
         return response.user;
       });
   };
