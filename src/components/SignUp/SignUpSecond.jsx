@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
+import { Departments } from "../../constants/department";
+import { getCountries, getCities } from "../../data/countries.data";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
 import { form, h2, inputBx } from "./SignUp.module.css";
-import { Departments } from "../../constants/department";
-import { getCountries, getCities } from "../../data/countries.data";
 
-export default function SignUpSecond({setPage}) {
+export default function SignUpSecond({ setPage, info, setInfo }) {
   const [countriesData, setCountriesData] = useState([]);
   const [citiesData, setCitiesData] = useState([]);
   const [department, setDepartment] = useState(Departments[1].name);
-  const [jobTitle, setJobTitle] = useState("");  
+  const [jobTitle, setJobTitle] = useState("");
   const [country, setCountry] = useState(countriesData[1]?.name);
   const [city, setCity] = useState(citiesData[1]?.name);
-
-
 
   useEffect(() => {
     getCountries().then((res) => {
@@ -23,10 +21,14 @@ export default function SignUpSecond({setPage}) {
         let { common } = name;
         return { name: common, id: ccn3 };
       });
+
+      countries.sort((a, b) => {
+        return (a.name.trim().toLowerCase() - b.name.trim().toLowerCase());
+      });
+
       setCountry(countriesData[1]?.name);
       setCountriesData(countries);
     });
-
   }, []);
 
   useEffect(() => {
@@ -34,13 +36,18 @@ export default function SignUpSecond({setPage}) {
       const cities = data.map(({ city }) => {
         return { name: city, id: nanoid() };
       });
+
+      cities.sort((a, b) => {
+        return (a.name.trim().toUpperCase() - b.name.trim().toUpperCase());
+      });
+  
       setCity(citiesData[1]?.name);
       setCitiesData(cities);
     });
   }, []);
 
   const handleNext = () => {
-    console.log(department,jobTitle,country,city)
+    setInfo({ ...info, department, jobTitle, country, city });
     setPage(3);
   };
 
@@ -53,7 +60,11 @@ export default function SignUpSecond({setPage}) {
       <div className={form}>
         <h2 className={h2}>Registration </h2>
         <div className={inputBx}>
-          <Dropdown options={Departments} selected={Departments[1].name} onSelect={setDepartment}/>
+          <Dropdown
+            options={Departments}
+            selected={Departments[1].name}
+            onSelect={setDepartment}
+          />
         </div>
         <div className={`${inputBx}`}>
           <Input type="text" label="Department" />
@@ -62,13 +73,21 @@ export default function SignUpSecond({setPage}) {
           <Input type="text" label="Job Title" onChange={handleJobTitle} />
         </div>
         <div className={inputBx}>
-          <Dropdown options={countriesData} selected={countriesData[1]?.name} onSelect={setCountry}/>
+          <Dropdown
+            options={countriesData}
+            selected={countriesData[1]?.name}
+            onSelect={setCountry}
+          />
         </div>
         <div className={`${inputBx}`}>
           <Input type="text" label="Country" />
         </div>
         <div className={inputBx}>
-          <Dropdown options={citiesData} selected={citiesData[1]?.name} onSelect={setCity}/>
+          <Dropdown
+            options={citiesData}
+            selected={citiesData[1]?.name}
+            onSelect={setCity}
+          />
         </div>
         <div className={`${inputBx}`}>
           <Input type="text" label="City" />
