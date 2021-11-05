@@ -7,21 +7,17 @@ import { href, text } from "./Account.module.css";
 
 export default function Account() {
   const history = useHistory();
-  const [user, setUser] = useState({});
   const [fullName, setFullName] = useState("");
-  const [programLink, setProgramLink] = useState("");
 
   const path = history.location.pathname;
   const userId = path.replace("/account/", "");
 
   useEffect(() => {
     getUser(userId).then((res) => {
-      console.log(res);
       const { firstName, lastName } = res;
       setFullName(firstName + " " + lastName);
-      setUser(res);
     });
-  }, []);
+  }, [userId]);
 
   return (
     <LayoutPurple>

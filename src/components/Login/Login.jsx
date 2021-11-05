@@ -21,7 +21,7 @@ export default function Login() {
 
   useEffect(() => {
     signout();
-  }, []);
+  }, [signout]);
 
   const handleLogin = () => {
     const isEmailValid = isValidEmail(email);

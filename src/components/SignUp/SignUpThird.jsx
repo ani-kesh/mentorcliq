@@ -46,7 +46,7 @@ export default function SignUpThird({ info }) {
       const notSuggestedUsers = users.slice(5);
       setNotSuggestedUsers(notSuggestedUsers);
     });
-  }, []);
+  }, [info]);
 
   const Register = async () => {
     if (suggestedUsers.length !== 5) {
