@@ -10,9 +10,10 @@ import {
   selectedOption,
   option,
   icon,
+  span,
 } from "./Dropdown.module.css";
 
-export default function Dropdown({ options, selected, onSelect }) {
+export default function Dropdown({ options, selected, onSelect, label }) {
   const ref = useRef();
 
   const [toggle, setToggle] = useState(false);
@@ -38,38 +39,42 @@ export default function Dropdown({ options, selected, onSelect }) {
   };
 
   return (
-    <div className={container} ref={ref}>
-      <div className={selectedOption}>
-        <span className={selectedText}>{selectedTxt}</span>
-        {toggle ? (
-          <FontAwesomeIcon
-            icon={faAngleUp}
-            onClick={() => setToggle(!toggle)}
-            className={icon}
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faAngleDown}
-            onClick={() => setToggle(!toggle)}
-            className={icon}
-          />
+    <>
+      <div className={container} ref={ref}>
+        <div className={selectedOption}>
+          <span className={selectedText}>{selectedTxt}</span>
+          {toggle ? (
+            <FontAwesomeIcon
+              icon={faAngleUp}
+              onClick={() => setToggle(!toggle)}
+              className={icon}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faAngleDown}
+              onClick={() => setToggle(!toggle)}
+              className={icon}
+            />
+          )}
+        </div>
+        {toggle && (
+          <div className={optionContainer}>
+            {options.map(({ id, name }) => {
+              return (
+                <div
+                  key={`${id}${nanoid()}`}
+                  className={option}
+                  onClick={handleOption(name)}
+                >
+                  {name}
+                </div>
+              );
+            })}
+          </div>
         )}
       </div>
-      {toggle && (
-        <div className={optionContainer}>
-          {options.map(({ id, name }) => {
-            return (
-              <div
-                key={`${id}${nanoid()}`}
-                className={option}
-                onClick={handleOption(name)}
-              >
-                {name}
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
+
+      <span className={span}>{label}</span>
+    </>
   );
 }

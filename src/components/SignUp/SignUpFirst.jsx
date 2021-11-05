@@ -88,11 +88,10 @@ export default function SignUpFirst({ setPage, setInfo }) {
           options={Genders}
           selected={Genders[1].name}
           onSelect={setGender}
+          label={'Gender'}
         />
       </div>
-      <div className={`${inputBx}`}>
-        <Input type="text" label="Gender" />
-      </div>
+      
       <div className={inputBx}>
         <Input
           type="text"

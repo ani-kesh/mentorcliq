@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import {
@@ -9,19 +9,15 @@ import { Routes } from "../../constants/routes";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import LayoutPurple from "../LayoutPurple/LayoutPurple";
-import { form, h2, inputBx, password, signUp } from "./Login.module.css";
+import { form, h2, inputBx, password, signUp, href } from "./Login.module.css";
 
 export default function Login() {
-  const { signin, signout } = useAuth();
+  const { signin } = useAuth();
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [passwordVal, setPasswordVal] = useState("");
   const [isValidEmailVal, setIsValidEmailVal] = useState(true);
   const [isValidPasswordVal, setIsValidPasswordVal] = useState(true);
-
-  useEffect(() => {
-    signout();
-  }, []);
 
   const handleLogin = () => {
     const isEmailValid = isValidEmail(email);
@@ -74,7 +70,9 @@ export default function Login() {
           </div>
           <p className={signUp}>
             Don't have an account{" "}
-            <Link to={Routes.signup().path}>{Routes.signup().text}</Link>
+            <Link to={Routes.signup().path} className={href}>
+              {Routes.signup().text}
+            </Link>
           </p>
         </div>
       </LayoutPurple>

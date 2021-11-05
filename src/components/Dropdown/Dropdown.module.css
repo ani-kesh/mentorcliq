@@ -1,16 +1,23 @@
 .container {
   min-width: 50px;
-  width: 95%;
   max-width: 400px;
   min-height: 30px;
   max-height: 200px;
-  position: absolute;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   overflow-y: hidden;
   z-index: 100;
   color: white;
+  width: 260px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 10px;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .container div {
@@ -34,6 +41,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   border: 1px solid #696969;
+  padding:5px 0px;
 }
 
 .icon {

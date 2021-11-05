@@ -71,34 +71,33 @@ export default function SignUpSecond({ setPage, info, setInfo }) {
             options={Departments}
             selected={Departments[1].name}
             onSelect={setDepartment}
+            label="Department"
           />
         </div>
         <div className={`${inputBx}`}>
           <Input
             type="text"
-            label="Department"
+            label="Job Title"
+            onChange={handleJobTitle}
             isValid={isValidJob}
             message={"Please input correct job title"}
           />
-        </div>
-        <div className={`${inputBx}`}>
-          <Input type="text" label="Job Title" onChange={handleJobTitle} />
         </div>
         <div className={inputBx}>
           <Dropdown
             options={countriesData}
             selected={country}
             onSelect={setCountry}
+            label="Country"
           />
         </div>
-        <div className={`${inputBx}`}>
-          <Input type="text" label="Country" />
-        </div>
         <div className={inputBx}>
-          <Dropdown options={citiesData} selected={city} onSelect={setCity} />
-        </div>
-        <div className={`${inputBx}`}>
-          <Input type="text" label="City" />
+          <Dropdown
+            options={citiesData}
+            selected={city}
+            onSelect={setCity}
+            label="City"
+          />
         </div>
         <div className={inputBx}>
           <Button label="Next >>" onClick={handleNext} />

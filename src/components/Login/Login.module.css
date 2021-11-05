@@ -26,17 +26,18 @@
   pointer-events: none;
 }
 
+.href {
+  color: black;
+}
+
 .signUp {
   color: #fff;
   font-size: 15px;
   margin-top: 5px;
 }
-.signUp a {
-  color: #fff;
-}
 
 .signUp a:hover {
-  background-color: #000;
+  background-color: white;
   background-image: linear-gradient(to right, #434343 0%, black 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
