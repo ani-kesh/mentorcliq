@@ -2,18 +2,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import {
-  heading,
-  rowItem,
-  tableRow,
-  genderCol,
-  fullName,
-  location,
-  checkbox,
   header,
-  title,
   minusIcon,
   plusIcon,
+  container1,
+  title,
 } from "./Table.module.css";
+import React from "react";
 
 export default function Table({
   rowInfo,
@@ -24,59 +19,59 @@ export default function Table({
 }) {
   return (
     <>
-      <div className={`${tableRow} ${title}`}>{tableTitle}</div>
-      <div className={`${tableRow} ${heading}`}>
-        <div className={`${rowItem} ${checkbox} ${header}`}></div>
-        <div className={`${rowItem} ${fullName} ${header}`}>First Name</div>
-        <div className={`${rowItem} ${fullName} ${header}`}>Last Name</div>
-        <div className={`${rowItem} ${header}`}>Email</div>
-        <div className={`${rowItem} ${genderCol} ${header}`}>Gender</div>
-        <div className={`${rowItem} ${header}`}>Department</div>
-        <div className={`${rowItem} ${header}`}>Job Title</div>
-        <div className={`${rowItem} ${location} ${header}`}>Country</div>
-        <div className={`${rowItem} ${location} ${header}`}>City</div>
+      <div className={title}>{tableTitle}</div>
+      <div className={container1}>
+        <span className={header}></span>
+        <span className={header}>First Name</span>
+        <span className={header}>Last Name</span>
+        <span className={header}>Email</span>
+        <span className={header}>Gender</span>
+        <span className={header}>Department</span>
+        <span className={header}>Job Title</span>
+        <span className={header}>Country</span>
+        <span className={header}>City</span>
+        {rowInfo.map(
+          ({
+            city,
+            country,
+            department,
+            email,
+            firstName,
+            gender,
+            jobTitle,
+            lastName,
+            uid,
+          }) => {
+            return (
+              <React.Fragment key={uid}>
+                <span>
+                  {type === "-" ? (
+                    <FontAwesomeIcon
+                      icon={faMinusCircle}
+                      className={minusIcon}
+                      onClick={handleMinus(uid)}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faPlusCircle}
+                      className={plusIcon}
+                      onClick={handlePlus(uid)}
+                    />
+                  )}
+                </span>
+                <span>{firstName}</span>
+                <span>{lastName}</span>
+                <span>{email}</span>
+                <span>{gender}</span>
+                <span>{department}</span>
+                <span>{jobTitle}</span>
+                <span>{country}</span>
+                <span>{city}</span>
+              </React.Fragment>
+            );
+          }
+        )}
       </div>
-      {rowInfo.map(
-        ({
-          city,
-          country,
-          department,
-          email,
-          firstName,
-          gender,
-          jobTitle,
-          lastName,
-          uid,
-        }) => {
-          return (
-            <div className={tableRow} key={email}>
-              <div className={`${rowItem} ${checkbox}`}>
-                {type === "-" ? (
-                  <FontAwesomeIcon
-                    icon={faMinusCircle}
-                    className={minusIcon}
-                    onClick={handleMinus(uid)}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faPlusCircle}
-                    className={plusIcon}
-                    onClick={handlePlus(uid)}
-                  />
-                )}
-              </div>
-              <div className={`${rowItem} ${fullName}`}>{firstName}</div>
-              <div className={`${rowItem} ${fullName}`}>{lastName}</div>
-              <div className={rowItem}>{email}</div>
-              <div className={`${rowItem} ${genderCol}`}>{gender}</div>
-              <div className={rowItem}>{department}</div>
-              <div className={rowItem}>{jobTitle}</div>
-              <div className={`${rowItem} ${location}`}>{country}</div>
-              <div className={`${rowItem} ${location}`}>{city}</div>
-            </div>
-          );
-        }
-      )}
     </>
   );
 }

@@ -12,7 +12,7 @@ import {
   buttonContainer,
   footer,
   tableRow,
-  error
+  error,
 } from "./SignUp.module.css";
 
 export default function SignUpThird({ info }) {

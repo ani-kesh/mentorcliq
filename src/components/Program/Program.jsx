@@ -12,7 +12,7 @@ import {
   buttonContainer,
   footer,
   tableRow,
-  error
+  error,
 } from "./Program.module.css";
 
 export default function Program() {
@@ -83,7 +83,9 @@ export default function Program() {
         {isLoad && notSelectedUsers.length + selectedUsers.length > 0 ? (
           <div className={mainContainer}>
             <div className={tableContainer}>
-            {errorMessage !== "" && <span className={error}>{errorMessage}</span>}
+              {errorMessage !== "" && (
+                <span className={error}>{errorMessage}</span>
+              )}
               <Table
                 rowInfo={selectedUsers}
                 tableTitle={"Selected Users"}

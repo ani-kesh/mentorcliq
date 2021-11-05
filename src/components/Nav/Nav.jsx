@@ -14,15 +14,17 @@ export default function Nav() {
   };
 
   return (
-    <header className={header}>
-      <div className={logo}>
-        <Logo />
-      </div>
-      {user && (
-        <div className={logOut}>
-          <Button label="Log Out" onClick={handleLogOut} />
+    <header>
+      <nav className={header}>
+        <div className={logo}>
+          <Logo />
         </div>
-      )}
+        {user && (
+          <div className={logOut}>
+            <Button label="Log Out" onClick={handleLogOut} />
+          </div>
+        )}
+      </nav>
     </header>
   );
 }

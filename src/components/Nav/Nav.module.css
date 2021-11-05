@@ -11,7 +11,7 @@
 
 .logo {
   font-size: 30px;
-  margin-top:30px;
+  margin-top: 30px;
   padding-left: 30px;
   color: RGB(91, 175, 193);
 }
@@ -19,6 +19,35 @@
   cursor: pointer;
 }
 
-.logOut{
-  width:150px;
+.logOut {
+  width: 150px;
+}
+
+@media only screen and (max-width: 550px) {
+  .header {
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 1px;
+  }
+
+  .logo {
+    margin: 0px;
+    padding-left: 3px;
+    color: RGB(91, 175, 193);
+  }
+
+  .logOut {
+    width: 110px;
+    position: absolute;
+    height: 100%;
+    top: 5px;
+    right: 0px;
+    bottom: 0px;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .logo {
+    display: none;
+  }
 }

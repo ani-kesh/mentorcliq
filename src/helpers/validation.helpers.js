@@ -6,7 +6,7 @@ export function isValidEmail(email) {
 }
 
 export function isValidPassword(password) {
-  // Minimum eight characters, at least one letter and one number:
+  // Minimum six characters, at least one letter and one number:
   const passwordCheckReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
   if (passwordCheckReg.test(password)) return true;
   return false;

@@ -1,27 +1,19 @@
 /*third page table style start*/
 
-
-.tableRow {
-  display: flex;
-  flex-flow: row nowrap;
-  width: 100%;
-  /* border-bottom: 1px solid #dadada; */
+.container1 {
+  display: grid;
+  grid-template-columns: repeat(9, auto);
+  border-top: 1px solid transparent;
+  margin-bottom: 30px;
+  overflow-x: auto;
 }
 
-.heading {
-  background-color: #ececec;
-  color: #3e3e3e;
-  font-weight: bold;
+.container1 > span {
+  padding: 5px 4px;
+  border-bottom: 1px solid #473876;
 }
 
-.rowItem {
-  display: flex;
-  flex: 1;
-  font-size: 12px;
-  padding: 8px 0;
-  justify-content: flex-start;
-  align-items: center;
-  transition: all 0.15s ease-in-out;
+span:nth-child(n + 10) {
   background-color: white;
 }
 
@@ -36,38 +28,6 @@
   color: white;
   font-size: 18px;
 }
-
-.rowSubContainer {
-  display: flex;
-  flex-flow: column nowrap;
-  flex: 1;
-}
-
-.genderCol {
-  max-width: 70px;
-}
-
-.fullName,
-.location {
-  max-width: 120px;
-}
-
-.checkbox {
-  max-width: 50px;
-}
-
-
-
-.rowSubContainer .rowItem {
-  padding: 8px 0;
-  border-bottom: 1px solid #dadada;
-}
-
-.tableRow:last-child,
-.rowSubContainer .rowItem:last-child {
-  border-bottom: 0;
-}
-
 
 .minusIcon,
 .plusIcon {
