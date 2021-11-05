@@ -2,6 +2,7 @@ import Login from "../components/Login/Login";
 import SignUp from "../components/SignUp/SignUp";
 import Account from "../components/Account/Account";
 import Program from "../components/Program/Program";
+import Error from "../components/Error/Error";
 
 export const Routes = {
   login: () => ({
@@ -31,4 +32,6 @@ export const Routes = {
     component: Program,
     id: 3,
   }),
+
+  error: () => ({ path: "*", text: "Error", component: Error }),
 };

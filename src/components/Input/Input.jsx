@@ -1,6 +1,13 @@
-import { input, span ,errorMessage} from "./Input.module.css";
+import { input, span, errorMessage } from "./Input.module.css";
 
-export default function Input({ type, required, label, onChange ,isValid,message}) {
+export default function Input({
+  type,
+  required,
+  label,
+  onChange,
+  isValid,
+  message,
+}) {
   return (
     <>
       <input
