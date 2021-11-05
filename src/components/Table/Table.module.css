@@ -1,0 +1,90 @@
+/*third page table style start*/
+
+
+.tableRow {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  /* border-bottom: 1px solid #dadada; */
+}
+
+.heading {
+  background-color: #ececec;
+  color: #3e3e3e;
+  font-weight: bold;
+}
+
+.rowItem {
+  display: flex;
+  flex: 1;
+  font-size: 12px;
+  padding: 8px 0;
+  justify-content: flex-start;
+  align-items: center;
+  transition: all 0.15s ease-in-out;
+  background-color: white;
+}
+
+.header {
+  background-color: #ececec;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0px;
+  color: white;
+  font-size: 18px;
+}
+
+.rowSubContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1;
+}
+
+.genderCol {
+  max-width: 70px;
+}
+
+.fullName,
+.location {
+  max-width: 120px;
+}
+
+.checkbox {
+  max-width: 50px;
+}
+
+
+
+.rowSubContainer .rowItem {
+  padding: 8px 0;
+  border-bottom: 1px solid #dadada;
+}
+
+.tableRow:last-child,
+.rowSubContainer .rowItem:last-child {
+  border-bottom: 0;
+}
+
+
+.minusIcon,
+.plusIcon {
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.minusIcon:hover,
+.plusIcon:hover {
+  cursor: pointer;
+}
+
+.minusIcon {
+  color: rgb(243, 0, 0);
+}
+
+.plusIcon {
+  color: rgb(24, 209, 24);
+}
+/*third page table style end*/

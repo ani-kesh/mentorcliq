@@ -12,7 +12,6 @@ export function isValidPassword(password) {
   return false;
 }
 
-
 export function isEmptyString(value) {
   if (value.replace(/\s/g, "") === "") return false;
   return true;

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import {nanoid} from "nanoid";
+import { nanoid } from "nanoid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +12,7 @@ import {
   icon,
 } from "./Dropdown.module.css";
 
-export default function Dropdown({ options, selected ,onSelect }) {
+export default function Dropdown({ options, selected, onSelect }) {
   const ref = useRef();
 
   const [toggle, setToggle] = useState(false);
@@ -32,7 +32,7 @@ export default function Dropdown({ options, selected ,onSelect }) {
   }, [toggle]);
 
   const handleOption = (txt) => (ev) => {
-    onSelect(txt)
+    onSelect(txt);
     setSelectedTxt(txt);
     setToggle(false);
   };
@@ -57,9 +57,13 @@ export default function Dropdown({ options, selected ,onSelect }) {
       </div>
       {toggle && (
         <div className={optionContainer}>
-          {options.map(({ id, name },) => {
+          {options.map(({ id, name }) => {
             return (
-              <div key={`${id}${nanoid()}`} className={option} onClick={handleOption(name)}>
+              <div
+                key={`${id}${nanoid()}`}
+                className={option}
+                onClick={handleOption(name)}
+              >
                 {name}
               </div>
             );

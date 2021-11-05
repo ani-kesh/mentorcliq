@@ -16,6 +16,8 @@ export default function SignUpSecond({ setPage, info, setInfo }) {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
 
+  const [isValidJob, setIsValidJob] = useState(true);
+
   useEffect(() => {
     getCountries().then((res) => {
       const countries = res.map(({ name, ccn3 }) => {
@@ -53,6 +55,7 @@ export default function SignUpSecond({ setPage, info, setInfo }) {
       setInfo({ ...info, department, jobTitle, country, city });
       setPage(3);
     }
+    setIsValidJob(isValidTitle);
   };
 
   const handleJobTitle = (ev) => {
@@ -71,7 +74,12 @@ export default function SignUpSecond({ setPage, info, setInfo }) {
           />
         </div>
         <div className={`${inputBx}`}>
-          <Input type="text" label="Department" />
+          <Input
+            type="text"
+            label="Department"
+            isValid={isValidJob}
+            message={"Please input correct job title"}
+          />
         </div>
         <div className={`${inputBx}`}>
           <Input type="text" label="Job Title" onChange={handleJobTitle} />

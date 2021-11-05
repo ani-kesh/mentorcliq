@@ -17,6 +17,11 @@ export default function SignUpFirst({ setPage, setInfo }) {
   const [email, setEmail] = useState("");
   const [passwordVal, setPasswordVal] = useState("");
 
+  const [isValidFirstName, setIsValidFirstName] = useState(true);
+  const [isValidLastName, setIsValidLastName] = useState(true);
+  const [isValidEmailVal, setIsValidEmailVal] = useState(true);
+  const [isValidPasswordVal, setIsValidPasswordVal] = useState(true);
+
   const handleNext = () => {
     const isValidFirstNm = isEmptyString(firstName);
     const isValidLastNm = isEmptyString(lastName);
@@ -33,6 +38,10 @@ export default function SignUpFirst({ setPage, setInfo }) {
       });
       setPage(2);
     }
+    setIsValidFirstName(isValidFirstNm);
+    setIsValidLastName(isValidLastNm);
+    setIsValidEmailVal(isEmailValid);
+    setIsValidPasswordVal(isPasswordValid);
   };
 
   const handleFirstName = (ev) => {
@@ -60,6 +69,8 @@ export default function SignUpFirst({ setPage, setInfo }) {
           label="First Name"
           required="required"
           onChange={handleFirstName}
+          isValid={isValidFirstName}
+          message={"Please input correct name"}
         />
       </div>
       <div className={inputBx}>
@@ -68,6 +79,8 @@ export default function SignUpFirst({ setPage, setInfo }) {
           label="Last Name"
           required="required"
           onChange={handleLastName}
+          isValid={isValidLastName}
+          message={"Please input correct name"}
         />
       </div>
       <div className={inputBx}>
@@ -86,6 +99,8 @@ export default function SignUpFirst({ setPage, setInfo }) {
           label="Username"
           required="required"
           onChange={handleUsername}
+          isValid={isValidEmailVal}
+          message="Please input correct email"
         />
       </div>
       <div className={`${inputBx} ${password}`}>
@@ -94,6 +109,8 @@ export default function SignUpFirst({ setPage, setInfo }) {
           label="Password"
           required="required"
           onChange={handlePassword}
+          isValid={isValidPasswordVal}
+          message="Password should be minimum eight characters, at least one letter and one number"
         />
       </div>
       <div className={inputBx}>

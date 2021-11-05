@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import {
@@ -12,12 +12,16 @@ import LayoutPurple from "../LayoutPurple/LayoutPurple";
 import { form, h2, inputBx, password, signUp } from "./Login.module.css";
 
 export default function Login() {
-  const { signin } = useAuth();
+  const { signin, signout } = useAuth();
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [passwordVal, setPasswordVal] = useState("");
   const [isValidEmailVal, setIsValidEmailVal] = useState(true);
   const [isValidPasswordVal, setIsValidPasswordVal] = useState(true);
+
+  useEffect(() => {
+    signout();
+  }, []);
 
   const handleLogin = () => {
     const isEmailValid = isValidEmail(email);
@@ -51,6 +55,8 @@ export default function Login() {
               label="Email"
               required="required"
               onChange={handleEmail}
+              isValid={isValidEmailVal}
+              message="Please input correct email"
             />
           </div>
           <div className={`${inputBx} ${password}`}>
@@ -59,6 +65,8 @@ export default function Login() {
               label="Password"
               required="required"
               onChange={handlePassword}
+              isValid={isValidPasswordVal}
+              message="Password should be minimum eight characters, at least one letter and one number"
             />
           </div>
           <div className={inputBx}>

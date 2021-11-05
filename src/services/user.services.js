@@ -13,7 +13,6 @@ export const addUser = ({
   uid,
 }) => {
   return db.ref(`/users/${uid}`).set({
-    uid,
     email,
     password: passwordVal,
     firstName,
@@ -26,14 +25,24 @@ export const addUser = ({
   });
 };
 
-
-export const getUsers = () => {
-    return db.ref(`/users/`).once("value")
+export async function getUsers() {
+  return db
+    .ref(`/users/`)
+    .once("value")
     .then((snapshot) => {
       return snapshot.val();
     });
-  };
+}
 
-
-
-  
+export async function getUser(id) {
+  try {
+    return db
+      .ref(`users/${id}`)
+      .once("value")
+      .then((snapshot) => {
+        return snapshot.val();
+      });
+  } catch (err) {
+    console.log(err);
+  }
+}

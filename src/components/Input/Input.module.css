@@ -21,3 +21,8 @@
   transform: translateX(-30px) translateY(-25px);
   font-size: 12px;
 }
+
+.errorMessage {
+  color: red;
+  max-width:300px;
+}

@@ -1,6 +1,5 @@
-//import Login from "../Login/Login";
-import SignUp from "../SignUp/SignUp";
 import Nav from "./../Nav/Nav";
+import SignUp from "../SignUp/SignUp";
 
 export default function General() {
   return (

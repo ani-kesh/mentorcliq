@@ -1,55 +1,43 @@
 import React, { useState, useEffect } from "react";
-import {  useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router-dom";
 import { getUsers } from "../../services/user.services";
 import { useAuth } from "../../contexts/AuthContext";
 import { Routes } from "../../constants/routes";
 import Button from "../Button/Button";
 import Loading from "../Loading/Loading";
+import Table from "../Table/Table";
 import {
   mainContainer,
   tableContainer,
-  heading,
-  rowItem,
-  tableRow,
-  genderCol,
-  fullName,
-  location,
-  checkbox,
   buttonContainer,
   footer,
-  header,
-  title,
-  minusIcon,
-  plusIcon,
+  tableRow,
+  error
 } from "./SignUp.module.css";
 
 export default function SignUpThird({ info }) {
-  const { signup, user } = useAuth();
+  const { signup } = useAuth();
   const history = useHistory();
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const [notSuggestedUsers, setNotSuggestedUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const { email, passwordVal } = info;
 
   useEffect(() => {
     let countMatch = 0;
     getUsers().then((res) => {
-      const users = Object.values(res).reduce((acc, el) => {
-        const { country, department } = el;
-
+      const users = Object.keys(res).reduce((acc, el) => {
+        const { country, department } = { ...res[el] };
+        const user = { ...res[el], uid: el };
         if (info["department"] === department) {
           countMatch++;
-          return [el, ...acc];
+          return [user, ...acc];
         } else if (info["country"] === country) {
           let startAcc = acc.slice(0, countMatch);
           let endAcc = acc.slice(countMatch);
           countMatch++;
-          return [...startAcc, el, ...endAcc];
+          return [...startAcc, user, ...endAcc];
         }
-        return [...acc, el];
+        return [...acc, user];
       }, []);
 
       const suggestedUsers = users.slice(0, 5);
@@ -60,7 +48,7 @@ export default function SignUpThird({ info }) {
     });
   }, []);
 
-  const Register = () => {
+  const Register = async () => {
     if (suggestedUsers.length !== 5) {
       setErrorMessage("You can have only 5 users.");
     } else {
@@ -68,12 +56,11 @@ export default function SignUpThird({ info }) {
       const suggestedUserIds = suggestedUsers.map(({ uid }) => uid);
       const program = {
         ...info,
-        userIds:[...suggestedUserIds]
+        userIds: [...suggestedUserIds],
       };
-      
-      signup(program).then(() => {
-        return history.push(Routes.account(user.uid).path);
-      });
+
+      let userVal = await signup(program);
+      return history.push(Routes.account(userVal.uid).path);
     }
   };
 
@@ -100,97 +87,20 @@ export default function SignUpThird({ info }) {
     <>
       <div className={mainContainer}>
         <div className={tableContainer}>
-          <div className={`${tableRow} ${title}`}>Suggested Users</div>
-          <div className={`${tableRow} ${heading}`}>
-            <div className={`${rowItem} ${checkbox} ${header}`}></div>
-            <div className={`${rowItem} ${fullName} ${header}`}>First Name</div>
-            <div className={`${rowItem} ${fullName} ${header}`}>Last Name</div>
-            <div className={`${rowItem} ${header}`}>Email</div>
-            <div className={`${rowItem} ${genderCol} ${header}`}>Gender</div>
-            <div className={`${rowItem} ${header}`}>Department</div>
-            <div className={`${rowItem} ${header}`}>Job Title</div>
-            <div className={`${rowItem} ${location} ${header}`}>Country</div>
-            <div className={`${rowItem} ${location} ${header}`}>City</div>
-          </div>
-          {suggestedUsers.map(
-            ({
-              city,
-              country,
-              department,
-              email,
-              firstName,
-              gender,
-              jobTitle,
-              lastName,
-              uid,
-            }) => {
-              return (
-                <div className={tableRow} key={uid}>
-                  <div className={`${rowItem} ${checkbox}`}>
-                    <FontAwesomeIcon
-                      icon={faMinusCircle}
-                      className={minusIcon}
-                      onClick={handleMinus(uid)}
-                    />
-                  </div>
-                  <div className={`${rowItem} ${fullName}`}>{firstName}</div>
-                  <div className={`${rowItem} ${fullName}`}>{lastName}</div>
-                  <div className={rowItem}>{email}</div>
-                  <div className={`${rowItem} ${genderCol}`}>{gender}</div>
-                  <div className={rowItem}>{department}</div>
-                  <div className={rowItem}>{jobTitle}</div>
-                  <div className={`${rowItem} ${location}`}>{country}</div>
-                  <div className={`${rowItem} ${location}`}>{city}</div>
-                </div>
-              );
-            }
-          )}
-          <div className={`${tableRow} ${title}`}>Other Users</div>
-          <div className={`${tableRow} ${heading}`}>
-            <div className={`${rowItem} ${checkbox} ${header}`}></div>
-            <div className={`${rowItem} ${fullName} ${header}`}>First Name</div>
-            <div className={`${rowItem} ${fullName} ${header}`}>Last Name</div>
-            <div className={`${rowItem} ${header}`}>Email</div>
-            <div className={`${rowItem} ${genderCol} ${header}`}>Gender</div>
-            <div className={`${rowItem} ${header}`}>Department</div>
-            <div className={`${rowItem} ${header}`}>Job Title</div>
-            <div className={`${rowItem} ${location} ${header}`}>Country</div>
-            <div className={`${rowItem} ${location} ${header}`}>City</div>
-          </div>
+          {errorMessage !== "" && <span className={error}>{errorMessage}</span>}
+          <Table
+            rowInfo={suggestedUsers}
+            tableTitle={"Suggested Users"}
+            handleMinus={handleMinus}
+            type={"-"}
+          />
+          <Table
+            rowInfo={notSuggestedUsers}
+            tableTitle={"Other Users"}
+            handlePlus={handlePlus}
+            type={"+"}
+          />
 
-          {notSuggestedUsers.map(
-            ({
-              city,
-              country,
-              department,
-              email,
-              firstName,
-              gender,
-              jobTitle,
-              lastName,
-              uid,
-            }) => {
-              return (
-                <div className={tableRow} key={uid}>
-                  <div className={`${rowItem} ${checkbox}`}>
-                    <FontAwesomeIcon
-                      icon={faPlusCircle}
-                      className={plusIcon}
-                      onClick={handlePlus(uid)}
-                    />
-                  </div>
-                  <div className={`${rowItem} ${fullName}`}>{firstName}</div>
-                  <div className={`${rowItem} ${fullName}`}>{lastName}</div>
-                  <div className={rowItem}>{email}</div>
-                  <div className={`${rowItem} ${genderCol}`}>{gender}</div>
-                  <div className={rowItem}>{department}</div>
-                  <div className={rowItem}>{jobTitle}</div>
-                  <div className={`${rowItem} ${location}`}>{country}</div>
-                  <div className={`${rowItem} ${location}`}>{city}</div>
-                </div>
-              );
-            }
-          )}
           <div className={`${tableRow} ${footer}`}>
             <div className={buttonContainer}>
               <Button label="Register" onClick={Register} />
