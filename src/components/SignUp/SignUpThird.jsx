@@ -21,6 +21,7 @@ export default function SignUpThird({ info }) {
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const [notSuggestedUsers, setNotSuggestedUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isValidSignUp, setIsValidSignUp] = useState(true);
 
   useEffect(() => {
     let countMatch = 0;
@@ -59,8 +60,15 @@ export default function SignUpThird({ info }) {
         userIds: [...suggestedUserIds],
       };
 
-      let userVal = await signup(program);
-      return history.push(Routes.account(userVal.uid).path);
+      await signup(program)
+        .then((res) => {
+          setIsValidSignUp(true);
+          return history.push(Routes.account(res.uid).path);
+        })
+        .catch((err) => {
+          setIsValidSignUp(false);
+          console.log(err);
+        });
     }
   };
 
@@ -88,6 +96,7 @@ export default function SignUpThird({ info }) {
       <div className={mainContainer}>
         <div className={tableContainer}>
           {errorMessage !== "" && <span className={error}>{errorMessage}</span>}
+          {isValidSignUp || <p className={error}>Not valid username</p>}
           <Table
             rowInfo={suggestedUsers}
             tableTitle={"Suggested Users"}

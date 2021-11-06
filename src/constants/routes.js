@@ -33,5 +33,5 @@ export const Routes = {
     id: 3,
   }),
 
-  error: () => ({ path: "*", text: "Error", component: Error }),
+  error: () => ({ path: "*", text: "Error", component: Error, id: 4 }),
 };
